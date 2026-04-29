@@ -10,6 +10,23 @@ object Actions {
     http("getMainPage")
       .get("/webtours/")
 
+  val Login: HttpRequestBuilder =
+    http("Login")
+      .post("/cgi-bin/login.pl")
+      .formParam("userSession", "143984.012231673HtAzVHHpzcQVzzzHtttDHpAzfHHf")
+      .formParam("username", "bilbo")
+      .formParam("password", "riddle")
+
+  val Flights: HttpRequestBuilder =
+    http("FlightsPage")
+      .get("/cgi-bin/nav.pl?")
+      .formParam("page", "menu")
+      .formParam("in", "flights")
+
+  val Reservations: HttpRequestBuilder =
+    http("ReservationsList")
+      .get("/cgi-bin/reservations.pl?page=welcome")
+
 }
 // for vc.ru tests
 //object Actions {
