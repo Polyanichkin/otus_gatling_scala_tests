@@ -10,7 +10,7 @@ class Debug extends Simulation{
 
       .inject(atOnceUsers(1))  // как и сколько пользователей запускаем
 
-//  ).protocols(otus.httpProtocol.proxy(Proxy("localhost", port = 8888))) // для отладки в Fiddler
-    ).protocols(otus.httpProtocol) // куда и с какими HTTP-настройками бьём
+  ).protocols(otus.httpProtocol.proxy(Proxy("localhost", port = 8888))) // для отладки в Fiddler
+//    ).protocols(otus.httpProtocol) // куда и с какими HTTP-настройками бьём
 
 }

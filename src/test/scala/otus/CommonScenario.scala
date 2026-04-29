@@ -14,7 +14,7 @@ object CommonScenario {
 class CommonScenario {
   val scn = scenario("Debug")
     .exec(Actions.MainPage)
-    .exec(Actions.feed)
+//    .exec(Actions.feed) // for vc.ru tests
 }
 
 
