@@ -10,20 +10,20 @@ object Actions {
     http("getMainPage")
       .get("/webtours/")
 
-  val Login: HttpRequestBuilder =
+  val login: HttpRequestBuilder =
     http("Login")
       .post("/cgi-bin/login.pl")
       .formParam("userSession", "143984.012231673HtAzVHHpzcQVzzzHtttDHpAzfHHf")
       .formParam("username", "bilbo")
       .formParam("password", "riddle")
 
-  val Flights: HttpRequestBuilder =
+  val flights: HttpRequestBuilder =
     http("FlightsPage")
       .get("/cgi-bin/nav.pl?")
       .formParam("page", "menu")
       .formParam("in", "flights")
 
-  val Reservations: HttpRequestBuilder =
+  val reservations: HttpRequestBuilder =
     http("ReservationsList")
       .get("/cgi-bin/reservations.pl?page=welcome")
 

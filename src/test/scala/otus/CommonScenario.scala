@@ -14,9 +14,9 @@ object CommonScenario {
 class CommonScenario {
   val scn = scenario("Debug")
     .exec(Actions.MainPage)
-    .exec(Actions.Login)
-    .exec(Actions.Flights)
-    .exec(Actions.Reservations)
+    .exec(Actions.login)
+    .exec(Actions.flights)
+    .exec(Actions.reservations)
 //    .exec(Actions.feed) // for vc.ru tests
 }
 
