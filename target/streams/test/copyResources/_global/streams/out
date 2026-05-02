@@ -1,0 +1,4 @@
+[0m[[0m[0mdebug[0m] [0m[0mCopy resource mappings: [0m
+[0m[[0m[0mdebug[0m] [0m[0m	(C:\Users\polya\IdeaProjects\gatling-sbt-plugin-demo\src\test\resources\gatling.conf,C:\Users\polya\IdeaProjects\gatling-sbt-plugin-demo\target\scala-2.13\test-classes\gatling.conf)[0m
+[0m[[0m[0mdebug[0m] [0m[0m	(C:\Users\polya\IdeaProjects\gatling-sbt-plugin-demo\src\test\resources\logback-test.xml,C:\Users\polya\IdeaProjects\gatling-sbt-plugin-demo\target\scala-2.13\test-classes\logback-test.xml)[0m
+[0m[[0m[0mdebug[0m] [0m[0m	(C:\Users\polya\IdeaProjects\gatling-sbt-plugin-demo\src\test\resources\users.csv,C:\Users\polya\IdeaProjects\gatling-sbt-plugin-demo\target\scala-2.13\test-classes\users.csv)[0m
