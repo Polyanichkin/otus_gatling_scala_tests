@@ -6,15 +6,29 @@ import io.gatling.http.Predef._
 import io.gatling.http.request.builder.HttpRequestBuilder
 
 object Actions {
+
   val MainPage: HttpRequestBuilder =
     http("getMainPage")
       .get("/webtours/")
       .check(status is 200)
 
+  val singOffTrue: HttpRequestBuilder =
+    http("preSessionID")
+      .get("/cgi-bin/welcome.pl?signOff=true")
+      .check(status is 200)
+
+  val homeUserSession: HttpRequestBuilder =
+    http("getUserSession")
+      .get("/cgi-bin/nav.pl")
+      .check(status is 200)
+//      .check(regex("/<input type=\"hidden\" name=\"userSession\" value=\"(.*)\"\\/>/gm").find.saveAs("user_session")) // Не работает, found nothing
+      .check(css("input[name=userSession]", "value").find.saveAs("user_session")) // "Работает", но получаю "0AA"
+
+
   val login: HttpRequestBuilder =
     http("Login")
       .post("/cgi-bin/login.pl")
-      .formParam("userSession", "143984.012231673HtAzVHHpzcQVzzzHtttDHpAzfHHf")
+      .formParam("userSession", "#{user_session}")
       .formParam("username", "bilbo")
       .formParam("password", "riddle")
       .check(status is 200)
@@ -30,20 +44,9 @@ object Actions {
     http("ReservationsList")
       .get("/cgi-bin/reservations.pl?page=welcome")
       .check(status is 200)
+//      .check(regex("/<option[^>]*value=\"([^\"]+)\">/gm").findAll.saveAs("cities")) // Не работает, found nothing
+//      .check(regex("/<option.* value=\"(.*)\">.*<\\/option>/").findRandom.saveAs("city_depart")) // Не работает, found nothing
+//      .check(regex("/<option.* value=\"(.*)\">.*<\\/option>/").findRandom.saveAs("city_arrive")) // Не работает, found nothing
 
 }
-// for vc.ru tests
-//object Actions {
-//  val MainPage: HttpRequestBuilder =
-//    http("getMainPage")
-//      .get("https://vc.ru")
-//      .formUpload("page", "welcome")
-//
-//  val feed: HttpRequestBuilder =
-//    http(requestName = "feed_open")
-//      .get("/v2.10/feed")
-//      .queryParam(name="markdown", value = false)
-//      .queryParam(name="markdown", value = false)
-//      .queryParam(name="markdown", value = false)
-//
-//}
+

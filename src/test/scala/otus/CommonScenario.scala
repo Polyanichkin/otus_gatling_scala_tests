@@ -3,6 +3,7 @@ package otus
 import io.gatling.core.Predef._
 import io.gatling.http.Predef._
 import io.gatling.core.structure.ScenarioBuilder
+import io.gatling.javaapi.core.internal.Feeders
 
 
 object CommonScenario {
@@ -12,12 +13,25 @@ object CommonScenario {
 }
 
 class CommonScenario {
+
+  val mainPageLogin = group("Open main page and login")(
+    exec(Actions.MainPage)
+    exec(Actions.homeUserSession)
+    exec(Actions.login)
+
+  )
+
   val scn = scenario("Debug")
-    .exec(Actions.MainPage)
-    .exec(Actions.login)
+    .exec(mainPageLogin)
+    .exec(session => {
+      println(s"Extracted userSession: ${session("user_session").as[String]}")
+      session
+    })
     .exec(Actions.flights)
     .exec(Actions.reservations)
-//    .exec(Actions.feed) // for vc.ru tests
+//    .exec(buyTicket)
+
+
 }
 
 
