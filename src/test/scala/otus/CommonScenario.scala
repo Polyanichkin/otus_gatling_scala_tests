@@ -18,6 +18,14 @@ class CommonScenario {
     exec(Actions.MainPage)
     exec(Actions.homeUserSession)
     exec(Actions.login)
+//    exitBlockOnFail(
+//      forever(
+//        randomSwitch(
+//          possibilities = 60.0 -> checkPages,
+//          40.0 -> baseOverview
+//        )
+//      )
+//    )
 
   )
 
