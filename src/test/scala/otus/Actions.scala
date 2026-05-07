@@ -12,20 +12,20 @@ object Actions {
       .get("/webtours/")
       .check(status is 200)
 
-  val singOffTrue: HttpRequestBuilder =
-    http("preSessionID")
+  val getCookies: HttpRequestBuilder =
+    http("getCookies")
       .get("/cgi-bin/welcome.pl?signOff=true")
-      .check(status is 200)
+      .check(status.is(200))
+      .check(headerRegex("Set-Cookie", "MSO=([^;]+)").saveAs("mso_cookie"))
 
-  val homeUserSession: HttpRequestBuilder =
+  val getUserSession: HttpRequestBuilder =
     http("getUserSession")
-      .get("/cgi-bin/nav.pl")
+      .get("/cgi-bin/nav.pl?in=home")
       .check(status is 200)
-//      .check(regex("/<input type=\"hidden\" name=\"userSession\" value=\"(.*)\"\\/>/gm").find.saveAs("user_session")) // Не работает, found nothing
-      .check(css("input[name=userSession]", "value").find.saveAs("user_session")) // "Работает", но получаю "0AA"
+      .header("Cookie", "${mso_cookie}")
+      .check(css("input[name=userSession]", "value").find.saveAs("user_session"))
 
-
-  val login: HttpRequestBuilder =
+  val   login: HttpRequestBuilder =
     http("Login")
       .post("/cgi-bin/login.pl")
       .formParam("userSession", "#{user_session}")

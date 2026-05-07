@@ -16,7 +16,8 @@ class CommonScenario {
 
   val mainPageLogin = group("Open main page and login")(
     exec(Actions.MainPage)
-    exec(Actions.homeUserSession)
+    exec(Actions.getCookies)
+    exec(Actions.getUserSession)
     exec(Actions.login)
 //    exitBlockOnFail(
 //      forever(
