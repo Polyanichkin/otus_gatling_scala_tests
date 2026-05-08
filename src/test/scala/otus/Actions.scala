@@ -44,9 +44,9 @@ object Actions {
     http("ReservationsList")
       .get("/cgi-bin/reservations.pl?page=welcome")
       .check(status is 200)
-//      .check(regex("/<option[^>]*value=\"([^\"]+)\">/gm").findAll.saveAs("cities")) // Не работает, found nothing
-//      .check(regex("/<option.* value=\"(.*)\">.*<\\/option>/").findRandom.saveAs("city_depart")) // Не работает, found nothing
-//      .check(regex("/<option.* value=\"(.*)\">.*<\\/option>/").findRandom.saveAs("city_arrive")) // Не работает, found nothing
+//      .check(regex("<option[^>]*value=\"([^\"]+)\">").findAll.saveAs("cities"))
+      .check(regex("<option[^>]*value=\"([^\"]+)\">").findRandom.saveAs("city_depart")) // Не работает, found nothing
+      .check(regex("<option[^>]*value=\"([^\"]+)\">").findRandom.saveAs("city_arrive")) // Не работает, found nothing
 
 }
 

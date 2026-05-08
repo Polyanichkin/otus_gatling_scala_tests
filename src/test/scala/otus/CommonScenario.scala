@@ -38,6 +38,11 @@ class CommonScenario {
     })
     .exec(Actions.flights)
     .exec(Actions.reservations)
+    .exec(session => {
+      println(s"Extracted city_depart: ${session("city_depart").as[String]}" +
+        s" and extracted city_arrive: ${session("city_arrive").as[String]}")
+      session
+    })
 //    .exec(buyTicket)
 
 
