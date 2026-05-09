@@ -33,11 +33,17 @@ object Actions {
       .formParam("password", "riddle")
       .check(status is 200)
 
+  val search: HttpRequestBuilder =
+    http("SearchPage")
+      .get("/cgi-bin/nav.pl?")
+      .queryParam("page", "search")
+      .check(status is 200)
+
   val flights: HttpRequestBuilder =
     http("FlightsPage")
       .get("/cgi-bin/nav.pl?")
-      .formParam("page", "menu")
-      .formParam("in", "flights")
+      .queryParam("page", "menu")
+      .queryParam("in", "flights")
       .check(status is 200)
 
   val reservations: HttpRequestBuilder =
@@ -47,6 +53,25 @@ object Actions {
 //      .check(regex("<option[^>]*value=\"([^\"]+)\">").findAll.saveAs("cities"))
       .check(regex("<option[^>]*value=\"([^\"]+)\">").findRandom.saveAs("city_depart")) // Не работает, found nothing
       .check(regex("<option[^>]*value=\"([^\"]+)\">").findRandom.saveAs("city_arrive")) // Не работает, found nothing
+
+  val choose_cities_and_dates: HttpRequestBuilder =
+    http("ChooseCitiesAndDates")
+      .post("/cgi-bin/reservations.pl")
+      .formParam("advanceDiscount", "0")
+      .formParam("depart", "#{city_depart}")
+      .formParam("departDate", "25/10/2026")
+      .formParam("arrive", "#{city_arrive}")
+      .formParam("returnDate", "30/10/2026")
+      .formParam("numPassengers", "1")
+      .formParam("seatPref", "None")
+      .formParam("seatType", "Coach")
+      .formParam("findFlights.x", "52")
+      .formParam("findFlights.y", "8")
+      .formParam(".cgifields", "roundtrip")
+      .formParam(".cgifields", "seatType")
+      .formParam(".cgifields", "seatPref")
+      .check(status is 200)
+      // В ОТВЕТЕ ПОКА НЕТ 4х рейсов на выбор
 
 }
 

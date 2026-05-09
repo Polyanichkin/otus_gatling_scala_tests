@@ -18,6 +18,10 @@ class CommonScenario {
     exec(Actions.MainPage)
     exec(Actions.getCookies)
     exec(Actions.getUserSession)
+    exec(session => {
+      println(s"Extracted userSession: ${session("user_session").as[String]}")
+      session
+    })
     exec(Actions.login)
 //    exitBlockOnFail(
 //      forever(
@@ -30,19 +34,21 @@ class CommonScenario {
 
   )
 
-  val scn = scenario("Debug")
-    .exec(mainPageLogin)
-    .exec(session => {
-      println(s"Extracted userSession: ${session("user_session").as[String]}")
-      session
-    })
-    .exec(Actions.flights)
-    .exec(Actions.reservations)
-    .exec(session => {
+  val chooseFlights = group("Open flights page and choose flight")(
+    exec(Actions.search)
+    exec(Actions.flights)
+    exec(Actions.reservations)
+    exec(session => {
       println(s"Extracted city_depart: ${session("city_depart").as[String]}" +
         s" and extracted city_arrive: ${session("city_arrive").as[String]}")
       session
     })
+    exec(Actions.choose_cities_and_dates)
+  )
+
+  val scn = scenario("Debug")
+    .exec(mainPageLogin)
+    .exec(chooseFlights)
 //    .exec(buyTicket)
 
 
