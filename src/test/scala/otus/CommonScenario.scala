@@ -44,6 +44,11 @@ class CommonScenario {
       session
     })
     exec(Actions.choose_cities_and_dates)
+    exec(session => {
+      println(s"Extracted flight: ${session("random_flight").as[String]}")
+      session
+    })
+    exec(Actions.choose_random_flight)
   )
 
   val scn = scenario("Debug")

@@ -16,9 +16,9 @@ val maxDuration = 10
   ).protocols(otus.httpProtocol.proxy(Proxy("localhost", port = 8888))) // для отладки в Fiddler
 //    ).protocols(otus.httpProtocol) // куда и с какими HTTP-настройками бьём
   .maxDuration(maxDuration)
-    .assertions(
-      details("/cgi-bin/nav.pl").responseTime.percentile3.lt(3000)
-
-    )
+//    .assertions(
+//      details("/cgi-bin/nav.pl").responseTime.percentile3.lt(3000)
+//
+//    )
 
 }

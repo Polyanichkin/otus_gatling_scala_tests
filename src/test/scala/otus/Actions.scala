@@ -51,17 +51,17 @@ object Actions {
       .get("/cgi-bin/reservations.pl?page=welcome")
       .check(status is 200)
 //      .check(regex("<option[^>]*value=\"([^\"]+)\">").findAll.saveAs("cities"))
-      .check(regex("<option[^>]*value=\"([^\"]+)\">").findRandom.saveAs("city_depart")) // Не работает, found nothing
-      .check(regex("<option[^>]*value=\"([^\"]+)\">").findRandom.saveAs("city_arrive")) // Не работает, found nothing
+      .check(regex("<option[^>]*value=\"([^\"]+)\">").findRandom.saveAs("city_depart"))
+      .check(regex("<option[^>]*value=\"([^\"]+)\">").findRandom.saveAs("city_arrive"))
 
   val choose_cities_and_dates: HttpRequestBuilder =
     http("ChooseCitiesAndDates")
       .post("/cgi-bin/reservations.pl")
       .formParam("advanceDiscount", "0")
       .formParam("depart", "#{city_depart}")
-      .formParam("departDate", "25/10/2026")
+      .formParam("departDate", "10/25/2026")
       .formParam("arrive", "#{city_arrive}")
-      .formParam("returnDate", "30/10/2026")
+      .formParam("returnDate", "10/30/2026")
       .formParam("numPassengers", "1")
       .formParam("seatPref", "None")
       .formParam("seatType", "Coach")
@@ -71,7 +71,33 @@ object Actions {
       .formParam(".cgifields", "seatType")
       .formParam(".cgifields", "seatPref")
       .check(status is 200)
-      // В ОТВЕТЕ ПОКА НЕТ 4х рейсов на выбор
+      .check(regex("name=\"outboundFlight\" value=\"([^\"]+)\"").findRandom.saveAs("random_flight"))
+
+
+    val choose_random_flight: HttpRequestBuilder =
+      http("ChooseFlight")
+        .post("/cgi-bin/reservations.pl")
+        .formParam("outboundFlight", "#{random_flight}")
+        .formParam("advanceDiscount", "0")
+        .formParam("numPassengers", "1")
+        .formParam("seatPref", "None")
+        .formParam("seatType", "Coach")
+        .formParam("findFlights.x", "52")
+        .formParam("findFlights.y", "8")
+        .check(status is 200)
+        // Надо поизвлекать данные пассажира для последующей покупки
+
+//  val book_flight_ticket: HttpRequestBuilder =
+//    http("ChooseFlight")
+//      .post("/cgi-bin/reservations.pl")
+//      .formParam("outboundFlight", "#{random_flight}")
+//      .formParam("advanceDiscount", "0")
+//      .formParam("numPassengers", "1")
+//      .formParam("seatPref", "None")
+//      .formParam("seatType", "Coach")
+//      .formParam("findFlights.x", "52")
+//      .formParam("findFlights.y", "8")
+//      .check(status is 200)
 
 }
 
