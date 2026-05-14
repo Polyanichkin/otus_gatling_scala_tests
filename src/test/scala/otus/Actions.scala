@@ -78,12 +78,12 @@ object Actions {
       http("ChooseFlight")
         .post("/cgi-bin/reservations.pl")
         .formParam("outboundFlight", "#{random_flight}")
-        .formParam("advanceDiscount", "0")
         .formParam("numPassengers", "1")
-        .formParam("seatPref", "None")
+        .formParam("advanceDiscount", "0")
         .formParam("seatType", "Coach")
-        .formParam("findFlights.x", "52")
-        .formParam("findFlights.y", "8")
+        .formParam("seatPref", "None")
+        .formParam("reserveFlights.x", "52")
+        .formParam("reserveFlights.y", "8")
         .check(status is 200)
         // Надо поизвлекать данные пассажира для последующей покупки
 
