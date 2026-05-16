@@ -1,9 +1,13 @@
-[0m[[0m[31merror[0m] [0m[0mC:\Users\polya\IdeaProjects\gatling-sbt-plugin-demo\src\test\scala\otus\Debug.scala:9:19: not enough arguments for method apply: (v1: io.gatling.core.session.Session): io.gatling.commons.validation.Validation[otus.CommonScenario.type] in trait Function1.[0m
-[0m[[0m[31merror[0m] [0m[0mUnspecified value parameter v1.[0m
-[0m[[0m[31merror[0m] [0m[0m    CommonScenario()           // что делает пользователь[0m
-[0m[[0m[31merror[0m] [0m[0m                  ^[0m
-[0m[[0m[31merror[0m] [0m[0mC:\Users\polya\IdeaProjects\gatling-sbt-plugin-demo\src\test\scala\otus\otus.scala:13:8: value disableResponseChunksDiscarding is not a member of io.gatling.http.protocol.HttpProtocolBuilder[0m
-[0m[[0m[31merror[0m] [0m[0mpossible cause: maybe a semicolon is missing before `value disableResponseChunksDiscarding`?[0m
-[0m[[0m[31merror[0m] [0m[0m      .disableResponseChunksDiscarding()[0m
-[0m[[0m[31merror[0m] [0m[0m       ^[0m
-[0m[[0m[31merror[0m] [0m[0mtwo errors found[0m
+[0m[[0m[31merror[0m] [0m[0mC:\Users\polya\IdeaProjects\gatling-sbt-plugin-demo\src\test\scala\otus\StepwiseLoadSimulation.scala:26:53: overloaded method + with alternatives:[0m
+[0m[[0m[31merror[0m] [0m[0m  (x: Double)Double <and>[0m
+[0m[[0m[31merror[0m] [0m[0m  (x: Float)Float <and>[0m
+[0m[[0m[31merror[0m] [0m[0m  (x: Long)Long <and>[0m
+[0m[[0m[31merror[0m] [0m[0m  (x: Int)Long <and>[0m
+[0m[[0m[31merror[0m] [0m[0m  (x: Char)Long <and>[0m
+[0m[[0m[31merror[0m] [0m[0m  (x: Short)Long <and>[0m
+[0m[[0m[31merror[0m] [0m[0m  (x: Byte)Long <and>[0m
+[0m[[0m[31merror[0m] [0m[0m  (x: String)String[0m
+[0m[[0m[31merror[0m] [0m[0m cannot be applied to (scala.concurrent.duration.FiniteDuration)[0m
+[0m[[0m[31merror[0m] [0m[0m  ).maxDuration(StepsCount * StepDuration.toSeconds + 30.seconds)[0m
+[0m[[0m[31merror[0m] [0m[0m                                                    ^[0m
+[0m[[0m[31merror[0m] [0m[0mone error found[0m
