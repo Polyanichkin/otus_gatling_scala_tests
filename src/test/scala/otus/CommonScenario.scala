@@ -16,21 +16,47 @@ class CommonScenario {
 
   val mainPageLogin = group("Open main page and login")(
     exec(Actions.MainPage)
-    exec(Actions.homeUserSession)
+    exec(Actions.getCookies)
+    exec(Actions.getUserSession)
+    exec(session => {
+      println(s"Extracted userSession: ${session("user_session").as[String]}")
+      session
+    })
     exec(Actions.login)
+//    exitBlockOnFail(
+//      forever(
+//        randomSwitch(
+//          possibilities = 60.0 -> checkPages,
+//          40.0 -> baseOverview
+//        )
+//      )
+//    )
 
+  )
+
+  val chooseFlights = group("Open flights page and choose flight")(
+    exec(Actions.search)
+    exec(Actions.flights)
+    exec(Actions.reservations)
+    exec(session => {
+      println(s"Extracted city_depart: ${session("city_depart").as[String]}" +
+        s" and extracted city_arrive: ${session("city_arrive").as[String]}")
+      session
+    })
+    exec(Actions.choose_cities_and_dates)
+    exec(session => {
+      println(s"Extracted flight: ${session("random_flight").as[String]}")
+      session
+    })
+    exec(Actions.choose_random_flight)
   )
 
   val scn = scenario("Debug")
     .exec(mainPageLogin)
-    .exec(session => {
-      println(s"Extracted userSession: ${session("user_session").as[String]}")
-      session
-    })
-    .exec(Actions.flights)
-    .exec(Actions.reservations)
-//    .exec(buyTicket)
-
+    .exec(chooseFlights)
+    .exec(Actions.book_flight_ticket)
+    .exec(Actions.singOff)
+    .exec(Actions.home)
 
 }
 
