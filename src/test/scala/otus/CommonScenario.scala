@@ -54,8 +54,9 @@ class CommonScenario {
   val scn = scenario("Debug")
     .exec(mainPageLogin)
     .exec(chooseFlights)
-//    .exec(buyTicket)
-
+    .exec(Actions.book_flight_ticket)
+    .exec(Actions.singOff)
+    .exec(Actions.home)
 
 }
 

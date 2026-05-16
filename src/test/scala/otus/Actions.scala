@@ -50,7 +50,6 @@ object Actions {
     http("ReservationsList")
       .get("/cgi-bin/reservations.pl?page=welcome")
       .check(status is 200)
-//      .check(regex("<option[^>]*value=\"([^\"]+)\">").findAll.saveAs("cities"))
       .check(regex("<option[^>]*value=\"([^\"]+)\">").findRandom.saveAs("city_depart"))
       .check(regex("<option[^>]*value=\"([^\"]+)\">").findRandom.saveAs("city_arrive"))
 
@@ -85,19 +84,48 @@ object Actions {
         .formParam("reserveFlights.x", "52")
         .formParam("reserveFlights.y", "8")
         .check(status is 200)
-        // Надо поизвлекать данные пассажира для последующей покупки
+        .check(regex("<input[^>]*name=\"firstName\"[^>]*value=\"([^\"]*)\"").find.saveAs("firstName"))
+        .check(regex("<input[^>]*name=\"lastName\"[^>]*value=\"([^\"]*)&#10;\"").find.saveAs("lastName"))
+        .check(regex("<input[^>]*name=\"address1\"[^>]*value=\"([^\"]*)\"").find.saveAs("address1"))
+        .check(regex("<input[^>]*name=\"address2\"[^>]*value=\"([^\"]*)\"").find.saveAs("address2"))
+        .check(regex("<input[^>]*name=\"pass1\"[^>]*value=\"([^\"]*)&#10;\"").find.saveAs("pass1"))
+        .check(regex("<input[^>]*name=\"creditCard\"[^>]*value=\"([^\"]*)\"").find.saveAs("creditCard"))
+        .check(regex("<input[^>]*name=\"expDate\"[^>]*value=\"([^\"]*)&#10;\"").find.saveAs("expDate"))
 
-//  val book_flight_ticket: HttpRequestBuilder =
-//    http("ChooseFlight")
-//      .post("/cgi-bin/reservations.pl")
-//      .formParam("outboundFlight", "#{random_flight}")
-//      .formParam("advanceDiscount", "0")
-//      .formParam("numPassengers", "1")
-//      .formParam("seatPref", "None")
-//      .formParam("seatType", "Coach")
-//      .formParam("findFlights.x", "52")
-//      .formParam("findFlights.y", "8")
-//      .check(status is 200)
+
+  val book_flight_ticket: HttpRequestBuilder =
+    http("ByTickets")
+      .post("/cgi-bin/reservations.pl")
+      .formParam("firstName", "#{firstName}")
+      .formParam("lastName", "#{lastName}")
+      .formParam("address1", "#{address1}")
+      .formParam("address2", "#{address2}")
+      .formParam("pass1", "#{pass1}")
+      .formParam("creditCard", "#{creditCard}")
+      .formParam("expDate", "#{expDate}")
+      .formParam("saveCC", "on")
+      .formParam("oldCCOption", "on")
+      .formParam("numPassengers", "1")
+      .formParam("seatType", "Coach")
+      .formParam("seatPref", "None")
+      .formParam("outboundFlight", "#{random_flight}")
+      .formParam("advanceDiscount", "0")
+      .formParam("returnFlight", "")
+      .formParam("JSFormSubmit", "off")
+      .formParam("buyFlights.x", "51")
+      .formParam("buyFlights.y", "3")
+      .formParam(".cgifields", "saveCC")
+      .check(status is 200)
+
+  val singOff: HttpRequestBuilder =
+    http("singOff")
+      .get("/cgi-bin/welcome.pl?signOff=1")
+      .check(status.is(200))
+
+  val home: HttpRequestBuilder =
+    http("homePage")
+      .get("/cgi-bin/nav.pl?in=home")
+      .check(status.is(200))
 
 }
 

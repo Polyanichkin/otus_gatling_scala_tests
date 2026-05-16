@@ -13,11 +13,11 @@ val maxDuration = 10
 
       .inject(atOnceUsers(1))  // как и сколько пользователей запускаем
 
-  ).protocols(otus.httpProtocol.proxy(Proxy("localhost", port = 8888))) // для отладки в Fiddler
-//    ).protocols(otus.httpProtocol) // куда и с какими HTTP-настройками бьём
+//  ).protocols(otus.httpProtocol.proxy(Proxy("localhost", port = 8888))) // для отладки в Fiddler
+    ).protocols(otus.httpProtocol) // куда и с какими HTTP-настройками бьём
   .maxDuration(maxDuration)
 //    .assertions(
-//      details("/cgi-bin/nav.pl").responseTime.percentile3.lt(3000)
+//      details("/cgi-bin/reservations.pl").responseTime.percentile3.lt(3000)
 //
 //    )
 
