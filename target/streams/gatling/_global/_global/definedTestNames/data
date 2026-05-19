@@ -1,1 +1,1 @@
-["example.BasicSimulation","otus.Debug","otus.fMaxClosedModel","otus.fMaxOpenedModel"]
+["example.BasicSimulation","otus.Debug","otus.fMaxClosedModel","otus.StepwiseLoadSimulation","otus.ReliabilityTestSimulation","otus.fMaxOpenedModel"]

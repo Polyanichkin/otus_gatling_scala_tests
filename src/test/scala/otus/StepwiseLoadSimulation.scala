@@ -6,8 +6,7 @@ import scala.concurrent.duration._
 
 class StepwiseLoadSimulation extends Simulation {
 
-  private val MaxRps: Double = 500.0
-
+  private val MaxRps: Double = 50.0
   private val StepRps      = MaxRps * 0.1
   private val StepsCount   = 10
   private val StepDuration = 2.minutes

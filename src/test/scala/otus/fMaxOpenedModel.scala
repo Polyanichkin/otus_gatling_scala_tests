@@ -13,13 +13,13 @@ class fMaxOpenedModel extends Simulation{
 
       .inject(
                 incrementUsersPerSec(5.0)
-                .times(5)
-                .eachLevelLasting(5.minutes)
+                .times(10)
+                .eachLevelLasting(3.minutes)
                 .separatedByRampsLasting(10)
                 .startingFrom(1)
 
     ).protocols(otus.httpProtocol))
-    .maxDuration(duration = 1000)
+    .maxDuration(duration = 2000)
 }
 
 
