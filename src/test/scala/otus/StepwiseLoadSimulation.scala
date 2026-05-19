@@ -6,10 +6,12 @@ import scala.concurrent.duration._
 
 class StepwiseLoadSimulation extends Simulation {
 
-  private val MaxRps: Double = 50.0
-  private val StepRps      = MaxRps * 0.1
+  private val TargetOpsPerHour: Double = 6000.0
+  private val TargetMaxRps: Double = TargetOpsPerHour / 3600.0
+
+  private val StepRps      = TargetMaxRps * 0.1
   private val StepsCount   = 10
-  private val StepDuration = 2.minutes
+  private val StepDuration = 3.minutes
   private val HttpConf     = otus.httpProtocol
 
   setUp(
@@ -18,9 +20,13 @@ class StepwiseLoadSimulation extends Simulation {
         incrementUsersPerSec(StepRps)
           .times(StepsCount)
           .eachLevelLasting(StepDuration)
-          .separatedByRampsLasting(0.seconds)
+          .separatedByRampsLasting(10.seconds)
           .startingFrom(StepRps)
       )
       .protocols(HttpConf)
-  ).maxDuration(StepsCount * StepDuration + 30.seconds)
+    // .assertions(
+    //   global.responseTime.percentile95.lte(2000),
+    //   global.failedRequests.percent.lte(5)
+    // )
+  ).maxDuration(31.minutes)
 }
