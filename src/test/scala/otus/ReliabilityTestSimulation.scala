@@ -7,7 +7,7 @@ import scala.concurrent.duration._
 class ReliabilityTestSimulation extends Simulation {
 
 
-  private val StableMaxRps: Double = 2.0
+  private val StableMaxRps: Double = 3.5
   private val TargetRps: Double = StableMaxRps * 0.8
   private val RampUpDuration: FiniteDuration = 15.minutes
   private val TestDuration: FiniteDuration = 1.hour
