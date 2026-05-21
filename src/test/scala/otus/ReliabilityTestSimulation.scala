@@ -7,17 +7,26 @@ import scala.concurrent.duration._
 class ReliabilityTestSimulation extends Simulation {
 
 
-  private val MaxRps: Double = 500.0
-
-  private val TargetRps    = MaxRps * 0.8
-  private val TestDuration = 1.hour
-  private val HttpConf     = otus.httpProtocol
+  private val StableMaxRps: Double = 2.0
+  private val TargetRps: Double = StableMaxRps * 0.8
+  private val RampUpDuration: FiniteDuration = 15.minutes
+  private val TestDuration: FiniteDuration = 1.hour
+  private val RampDownDuration: FiniteDuration = 5.minutes
+  private val HttpConf = otus.httpProtocol
 
   setUp(
     CommonScenario()
       .inject(
-        constantUsersPerSec(TargetRps).during(TestDuration)
+        rampUsersPerSec(0).to(TargetRps).during(RampUpDuration),
+        constantUsersPerSec(TargetRps).during(TestDuration),
+        rampUsersPerSec(TargetRps).to(0).during(RampDownDuration)
       )
       .protocols(HttpConf)
-  ).maxDuration(TestDuration + 5.minutes)
+  )
+    .assertions(
+      global.failedRequests.percent.lte(0.5),
+      global.responseTime.percentile(95).lte(3000),
+      global.responseTime.percentile(99).lte(5000)
+    )
+    .maxDuration(TestDuration + RampUpDuration + RampDownDuration)
 }
